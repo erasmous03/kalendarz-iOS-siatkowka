@@ -1,79 +1,385 @@
 BEGIN:VCALENDAR
 VERSION:2.0
-PRODID:-//Polska Siatkowka//Mecze seniorow CEV//PL
+PRODID:-//Polska Siatkowka//Mecze seniorow//PL
 CALSCALE:GREGORIAN
 METHOD:PUBLISH
-X-WR-CALNAME:Polska siatkówka – seniorzy (ME 2026)
+X-WR-CALNAME:Polska siatkówka – seniorzy
 X-WR-TIMEZONE:Europe/Warsaw
 REFRESH-INTERVAL;VALUE=DURATION:P1D
 X-PUBLISHED-TTL:P1D
+X-WR-CALDESC:Kalendarz wygenerowany z pomocą AI (ChatGPT). Terminy z PZPS 
+ i CEV.
+BEGIN:VEVENT
+UID:pzps-782@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260520T150000Z
+DTEND:20260520T180000Z
+SUMMARY:Polska – Serbia | Turniej Towarzyski
+LOCATION:ArcelorMittal Park w Sosnowcu
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). Turniej Towarzys
+ ki. Godzina w Polsce: 20.05.2026 17:00. Czas trwania wpisu: szacunkowe 3 g
+ odziny.
+URL:https://www.pzps.pl/pl/aktualnosci/4005/rusza-sprzedaz-biletow-na-turni
+ ej-towarzyski-w-sosnowcu-i-katowicach
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-789@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260522T180000Z
+DTEND:20260522T210000Z
+SUMMARY:Polska – Ukraina | Turniej Towarzyski
+LOCATION:Spodek\, Katowice
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). Turniej Towarzys
+ ki. Godzina w Polsce: 22.05.2026 20:00. Czas trwania wpisu: szacunkowe 3 g
+ odziny.
+URL:https://www.pzps.pl/pl/aktualnosci/4005/rusza-sprzedaz-biletow-na-turni
+ ej-towarzyski-w-sosnowcu-i-katowicach
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-786@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260523T180000Z
+DTEND:20260523T210000Z
+SUMMARY:Polska – Bułgaria | Turniej Towarzyski
+LOCATION:Spodek\, Katowice
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). Turniej Towarzys
+ ki. Godzina w Polsce: 23.05.2026 20:00. Czas trwania wpisu: szacunkowe 3 g
+ odziny.
+URL:https://www.pzps.pl/pl/aktualnosci/4005/rusza-sprzedaz-biletow-na-turni
+ ej-towarzyski-w-sosnowcu-i-katowicach
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-794@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260610T050000Z
+DTEND:20260610T080000Z
+SUMMARY:Kuba – Polska | VNL mężczyzn - Chiny
+LOCATION:Linyi\, Chiny
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). VNL mężczyzn -
+  Chiny. Godzina w Polsce: 10.06.2026 07:00. Czas trwania wpisu: szacunkowe
+  3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/26434?match=Cuba-vs-Poland
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-795@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260611T120000Z
+DTEND:20260611T150000Z
+SUMMARY:Słowenia – Polska | VNL mężczyzn - Chiny
+LOCATION:Linyi\, Chiny
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). VNL mężczyzn -
+  Chiny. Godzina w Polsce: 11.06.2026 14:00. Czas trwania wpisu: szacunkowe
+  3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/26444?match=Slovenia-vs-Poland
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-796@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260612T120000Z
+DTEND:20260612T150000Z
+SUMMARY:Japonia – Polska | VNL mężczyzn - Chiny
+LOCATION:Linyi\, Chiny
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). VNL mężczyzn -
+  Chiny. Godzina w Polsce: 12.06.2026 14:00. Czas trwania wpisu: szacunkowe
+  3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/26450?match=Japan-vs-Poland
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-797@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260614T050000Z
+DTEND:20260614T080000Z
+SUMMARY:Ukraina – Polska | VNL mężczyzn - Chiny
+LOCATION:Linyi\, Chiny
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). VNL mężczyzn -
+  Chiny. Godzina w Polsce: 14.06.2026 07:00. Czas trwania wpisu: szacunkowe
+  3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/26461?match=Ukraine-vs-Poland
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-800@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260624T180000Z
+DTEND:20260624T210000Z
+SUMMARY:Polska – Belgia | VNL mężczyzn - Gliwice
+LOCATION:PreZero Arena Gliwice
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). VNL mężczyzn -
+  Gliwice. Godzina w Polsce: 24.06.2026 20:00. Czas trwania wpisu: szacunko
+ we 3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/#fromDate=2026-06-24&gender=men&venue=gliwice
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-802@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260625T180000Z
+DTEND:20260625T210000Z
+SUMMARY:Polska – Turcja | VNL mężczyzn - Gliwice
+LOCATION:PreZero Arena Gliwice
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). VNL mężczyzn -
+  Gliwice. Godzina w Polsce: 25.06.2026 20:00. Czas trwania wpisu: szacunko
+ we 3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/#fromDate=2026-06-24&gender=men&venue=gliwice
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-805@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260627T150000Z
+DTEND:20260627T180000Z
+SUMMARY:Polska – Niemcy | VNL mężczyzn - Gliwice
+LOCATION:PreZero Arena Gliwice
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). VNL mężczyzn -
+  Gliwice. Godzina w Polsce: 27.06.2026 17:00. Czas trwania wpisu: szacunko
+ we 3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/#fromDate=2026-06-24&gender=men&venue=gliwice
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-809@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260628T180000Z
+DTEND:20260628T210000Z
+SUMMARY:Polska – Argentyna | VNL mężczyzn - Gliwice
+LOCATION:PreZero Arena Gliwice
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). VNL mężczyzn -
+  Gliwice. Godzina w Polsce: 28.06.2026 20:00. Czas trwania wpisu: szacunko
+ we 3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/#fromDate=2026-06-24&gender=men&venue=gliwice
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-793@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260710T183000Z
+DTEND:20260710T213000Z
+SUMMARY:Polska – Niemcy | Mecz towarzyski reprezentacji Polski mężczyzn
+LOCATION:Hala Urania\, Olsztyn
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). Mecz towarzyski 
+ reprezentacji Polski mężczyzn. Godzina w Polsce: 10.07.2026 20:30. Czas 
+ trwania wpisu: szacunkowe 3 godziny.
+URL:https://www.pzps.pl/pl/kalendarium
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-823@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260715T170000Z
+DTEND:20260715T200000Z
+SUMMARY:Polska – Bułgaria | VNL mężczyzn - Chicago
+LOCATION:Chicago\, USA
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). VNL mężczyzn -
+  Chicago. Godzina w Polsce: 15.07.2026 19:00. Czas trwania wpisu: szacunko
+ we 3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/26511/?match=bulgaria-vs-poland
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-824@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260718T010000Z
+DTEND:20260718T040000Z
+SUMMARY:Brazylia – Polska | VNL mężczyzn - Chicago
+LOCATION:Chicago\, USA
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). VNL mężczyzn -
+  Chicago. Godzina w Polsce: 18.07.2026 03:00. Czas trwania wpisu: szacunko
+ we 3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/26526/?match=brazil-vs-poland
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-825@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260718T210000Z
+DTEND:20260719T000000Z
+SUMMARY:Francja – Polska | VNL mężczyzn - Chicago
+LOCATION:Chicago\, USA
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). VNL mężczyzn -
+  Chicago. Godzina w Polsce: 18.07.2026 23:00. Czas trwania wpisu: szacunko
+ we 3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/26531/?match=france-vs-poland
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-826@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260719T010000Z
+DTEND:20260719T040000Z
+SUMMARY:USA – Polska | VNL mężczyzn - Chicago
+LOCATION:Chicago\, USA
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). VNL mężczyzn -
+  Chicago. Godzina w Polsce: 19.07.2026 03:00. Czas trwania wpisu: szacunko
+ we 3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/26541/?match=usa-vs-poland
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-893@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260730T113000Z
+DTEND:20260730T143000Z
+SUMMARY:Polska – Ukraina | Finał VNL mężczyzn
+LOCATION:Ningbo Beilun\, Chiny
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). Finał VNL męż
+ czyzn\, ćwierćfinał. Godzina w Polsce: 30.07.2026 13:30. Czas trwania w
+ pisu: szacunkowe 3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/26545/?match=poland-vs-ukraine
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-894@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260801T070000Z
+DTEND:20260801T100000Z
+SUMMARY:Słowenia – Polska | Finał VNL mężczyzn
+LOCATION:Ningbo Beilun\, Chiny
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). Finał VNL męż
+ czyzn\, półfinał. Godzina w Polsce: 01.08.2026 09:00. Czas trwania wpis
+ u: szacunkowe 3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/26547/?match=slovenia-vs-poland&_rsc=np_0zrrfrai72mtu
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-896@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260802T113000Z
+DTEND:20260802T143000Z
+SUMMARY:USA – Polska | Finał VNL mężczyzn
+LOCATION:Ningbo Beilun\, Chiny
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). Finał VNL męż
+ czyzn\, mecz o złoto. Godzina w Polsce: 02.08.2026 13:30. Czas trwania wp
+ isu: szacunkowe 3 godziny.
+URL:https://en.volleyballworld.com/volleyball/competitions/volleyball-natio
+ ns-league/schedule/26549/?match=usa-vs-poland&_rsc=np_0zrrfrai72mtu
+END:VEVENT
+BEGIN:VEVENT
+UID:pzps-909@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
+DTSTART:20260905T184000Z
+DTEND:20260905T214000Z
+SUMMARY:Polska – Finlandia | Mecz towarzyski reprezentacji Polski mężcz
+ yzn
+LOCATION:ERGO ARENA Gdańsk
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). Mecz towarzyski 
+ reprezentacji Polski mężczyzn. Godzina w Polsce: 05.09.2026 20:40. Czas 
+ trwania wpisu: szacunkowe 3 godziny.
+URL:https://www.pzps.pl/pl/kalendarium
+END:VEVENT
 BEGIN:VEVENT
 UID:cev-eurovolley-2026-men-84811@polska-siatkowka
-SEQUENCE:0
-DTSTAMP:20260912T210708Z
-LAST-MODIFIED:20260912T210708Z
+SEQUENCE:1
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
 DTSTART:20260910T130000Z
 DTEND:20260910T160000Z
 SUMMARY:Polska – Portugalia | ME 2026
 LOCATION:Arena 8888\, Sofia\, Bułgaria
 DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). CEV Mistrzostwa 
- Europy 2026\, faza grupowa\, grupa B. Godzina rozpoczęcia meczu.
+ Europy 2026\, faza grupowa\, grupa B. Godzina w Polsce: 10.09.2026 15:00. 
+ Czas trwania wpisu: szacunkowe 3 godziny.
 URL:https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84811&ID=157
  2
 END:VEVENT
 BEGIN:VEVENT
 UID:cev-eurovolley-2026-men-84482@polska-siatkowka
-SEQUENCE:0
-DTSTAMP:20260912T210708Z
-LAST-MODIFIED:20260912T210708Z
+SEQUENCE:1
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
 DTSTART:20260912T130000Z
 DTEND:20260912T160000Z
 SUMMARY:Polska – Izrael | ME 2026
 LOCATION:Arena 8888\, Sofia\, Bułgaria
 DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). CEV Mistrzostwa 
- Europy 2026\, faza grupowa\, grupa B. Godzina rozpoczęcia meczu.
+ Europy 2026\, faza grupowa\, grupa B. Godzina w Polsce: 12.09.2026 15:00. 
+ Czas trwania wpisu: szacunkowe 3 godziny.
 URL:https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84482&ID=157
  2
 END:VEVENT
 BEGIN:VEVENT
 UID:cev-eurovolley-2026-men-84485@polska-siatkowka
-SEQUENCE:0
-DTSTAMP:20260912T210708Z
-LAST-MODIFIED:20260912T210708Z
+SEQUENCE:1
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
 DTSTART:20260913T160000Z
 DTEND:20260913T190000Z
 SUMMARY:Macedonia Północna – Polska | ME 2026
 LOCATION:Arena 8888\, Sofia\, Bułgaria
 DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). CEV Mistrzostwa 
- Europy 2026\, faza grupowa\, grupa B. Godzina rozpoczęcia meczu.
+ Europy 2026\, faza grupowa\, grupa B. Godzina w Polsce: 13.09.2026 18:00. 
+ Czas trwania wpisu: szacunkowe 3 godziny.
 URL:https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84485&ID=157
  2
 END:VEVENT
 BEGIN:VEVENT
 UID:cev-eurovolley-2026-men-84489@polska-siatkowka
-SEQUENCE:0
-DTSTAMP:20260912T210708Z
-LAST-MODIFIED:20260912T210708Z
+SEQUENCE:1
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
 DTSTART:20260915T160000Z
 DTEND:20260915T190000Z
 SUMMARY:Polska – Ukraina | ME 2026
 LOCATION:Arena 8888\, Sofia\, Bułgaria
 DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). CEV Mistrzostwa 
- Europy 2026\, faza grupowa\, grupa B. Godzina rozpoczęcia meczu.
+ Europy 2026\, faza grupowa\, grupa B. Godzina w Polsce: 15.09.2026 18:00. 
+ Czas trwania wpisu: szacunkowe 3 godziny.
 URL:https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84489&ID=157
  2
 END:VEVENT
 BEGIN:VEVENT
 UID:cev-eurovolley-2026-men-84491@polska-siatkowka
-SEQUENCE:0
-DTSTAMP:20260912T210708Z
-LAST-MODIFIED:20260912T210708Z
+SEQUENCE:1
+DTSTAMP:20260913T110204Z
+LAST-MODIFIED:20260913T110204Z
 DTSTART:20260916T160000Z
 DTEND:20260916T190000Z
 SUMMARY:Polska – Bułgaria | ME 2026
 LOCATION:Arena 8888\, Sofia\, Bułgaria
 DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). CEV Mistrzostwa 
- Europy 2026\, faza grupowa\, grupa B. Godzina rozpoczęcia meczu.
+ Europy 2026\, faza grupowa\, grupa B. Godzina w Polsce: 16.09.2026 18:00. 
+ Czas trwania wpisu: szacunkowe 3 godziny.
 URL:https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84491&ID=157
  2
 END:VEVENT

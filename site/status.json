@@ -1,8 +1,47 @@
 {
-  "last_success_utc": "2026-09-13T10:32:51Z",
-  "match_count": 5,
-  "last_run_utc": "2026-09-13T10:32:51Z",
+  "last_success_utc": "2026-09-13T11:02:04Z",
+  "match_count": 25,
+  "last_run_utc": "2026-09-13T11:02:04Z",
   "last_result": "ok",
-  "last_added": [],
-  "last_updated": []
+  "last_added": [
+    "PZPS-782",
+    "PZPS-789",
+    "PZPS-786",
+    "PZPS-794",
+    "PZPS-795",
+    "PZPS-796",
+    "PZPS-797",
+    "PZPS-800",
+    "PZPS-802",
+    "PZPS-805",
+    "PZPS-809",
+    "PZPS-793",
+    "PZPS-823",
+    "PZPS-824",
+    "PZPS-825",
+    "PZPS-826",
+    "PZPS-893",
+    "PZPS-894",
+    "PZPS-896",
+    "PZPS-909"
+  ],
+  "last_updated": [
+    "MFB-02",
+    "MFB-06",
+    "MFB-09",
+    "MFB-13",
+    "MFB-15"
+  ],
+  "sources": {
+    "PZPS": {
+      "result": "ok",
+      "matches": 24,
+      "awaiting_schedule": 0
+    },
+    "CEV ME 2026": {
+      "result": "ok",
+      "matches": 5,
+      "awaiting_schedule": 0
+    }
+  }
 }
