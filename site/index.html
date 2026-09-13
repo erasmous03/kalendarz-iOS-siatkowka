@@ -4,8 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10213f">
-  <meta name="description" content="Subskrybowany kalendarz meczów reprezentacji Polski mężczyzn w siatkówce. iOS, Android, Google Calendar i Outlook. Codzienne aktualizacje i logi. Projekt wygenerowany z pomocą AI.">
-  <title>Reprezentacja Polski w siatkówce – kalendarz i logi</title>
+  <meta name="description" content="Biało-czerwoni w Twoim kalendarzu. Mecze polskich siatkarzy: rywale, godziny i miejsca. Codzienne aktualizacje terminarza. Apple, Android, Google Calendar i Outlook. Projekt z pomocą AI.">
+  <meta property="og:title" content="Biało-czerwoni w Twoim kalendarzu">
+  <meta property="og:description" content="Dodaj raz i kibicuj przez cały sezon. Terminy, rywale i miejsca meczów polskich siatkarzy w Twojej aplikacji kalendarzowej.">
+  <meta property="og:type" content="website">
+  <title>Biało-czerwoni w Twoim kalendarzu | Polska siatkówka</title>
   <style>
     :root { font-family: system-ui, -apple-system, sans-serif; color: #eaf1fb; background: #0a1529; }
     * { box-sizing: border-box; }
@@ -33,22 +36,28 @@
     summary { cursor: pointer; font-weight: 650; }
     .buttons { display: flex; gap: 10px; flex-wrap: wrap; }
     .secondary { background: #244872; }
+    .counter { display: flex; align-items: center; gap: 24px; border-left: 4px solid #e83245; }
+    .counter-number { font-size: clamp(2.4rem, 8vw, 4rem); font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+    .counter p { margin: 8px 0 0; }
+    .counter h2 { margin: 0; }
+    @media (max-width: 480px) { .counter { align-items: flex-start; flex-direction: column; gap: 14px; } }
   </style>
 </head>
 <body>
 <main>
   <div class="eyebrow">Siatkówka · reprezentacja Polski mężczyzn</div>
-  <h1>Mecze seniorów w Twoim kalendarzu</h1>
-  <p>Subskrybuj mecze polskiej reprezentacji seniorów we wszystkich rozgrywkach: Lidze Narodów, mistrzostwach Europy i świata, igrzyskach, kwalifikacjach oraz turniejach i meczach towarzyskich. Codziennie sprawdzamy kalendarium PZPS; wydarzenia pojawiają się po opublikowaniu terminarza przez związek.</p>
+  <h1>Biało-czerwoni w Twoim kalendarzu</h1>
+  <p>Dodaj raz i kibicuj przez cały sezon. Terminy, rywale i miejsca meczów polskich siatkarzy trafią prosto do Twojej aplikacji kalendarzowej — od Ligi Narodów i spotkań towarzyskich po mistrzostwa Europy, świata i igrzyska.</p>
+  <p>Codziennie sprawdzamy oficjalny terminarz PZPS i uzupełniamy opublikowane spotkania. Godziny uwzględniają strefy czasowe, a zmiany docierają przez subskrypcję po odświeżeniu przez Twoją aplikację. Bez ręcznego przepisywania dat.</p>
   <section class="card" aria-labelledby="subscribe-heading">
     <h2 id="subscribe-heading">Dodaj do swojego kalendarza</h2>
     <p>Wybierz <strong>subskrypcję</strong>, aby otrzymywać nowe mecze i korekty terminów. Działa przez ten sam publiczny adres ICS na różnych urządzeniach.</p>
     <div class="buttons">
-      <a class="button" id="apple" href="calendar.ics">Apple / subskrypcja webcal</a>
-      <a class="button secondary" href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl" target="_blank" rel="noopener">Google Calendar / Android</a>
-      <a class="button secondary" href="https://outlook.live.com/calendar/" target="_blank" rel="noopener">Outlook</a>
+      <a class="button" id="apple" data-calendar-click href="calendar.ics">Apple / subskrypcja webcal</a>
+      <a class="button secondary" data-calendar-click href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl" target="_blank" rel="noopener">Google Calendar / Android</a>
+      <a class="button secondary" data-calendar-click href="https://outlook.live.com/calendar/" target="_blank" rel="noopener">Outlook</a>
     </div>
-    <button class="button" id="copy" type="button">Kopiuj adres subskrypcji</button>
+    <button class="button" id="copy" data-calendar-click type="button">Kopiuj adres subskrypcji</button>
     <span id="copy-status" role="status"></span>
     <p><code id="url" style="overflow-wrap:anywhere"></code></p>
     <p class="muted">Godziny wydarzeń dostosują się do strefy czasowej telefonu. O częstotliwości pobierania zmian przez iPhone decyduje aplikacja Kalendarz.</p>
@@ -75,9 +84,17 @@
     <details>
       <summary>Inne aplikacje lub jednorazowy import ICS</summary>
       <p>W aplikacji obsługującej kalendarze internetowe wybierz subskrypcję iCal/ICS lub webcal i wklej adres powyżej. Obsługa zależy od aplikacji.</p>
-      <a class="button secondary" href="calendar.ics" download="polska-siatkowka-mezczyzni.ics">Pobierz plik ICS</a>
+      <a class="button secondary" data-calendar-click href="calendar.ics" download="polska-siatkowka-mezczyzni.ics">Pobierz plik ICS</a>
       <p>Ten plik służy do <strong>jednorazowego importu</strong> w aplikacjach obsługujących ICS. Zaimportowane wydarzenia nie dostaną późniejszych aktualizacji. Aby uniknąć duplikatów, wybierz import albo subskrypcję.</p>
     </details>
+  </section>
+  <section class="card counter" aria-labelledby="clicks-heading">
+    <div class="counter-number" id="calendar-clicks" aria-live="polite" aria-atomic="true">—</div>
+    <div>
+      <h2 id="clicks-heading">Kliknięcia przycisków kalendarza</h2>
+      <p class="muted">Dodanie, kopiowanie adresu i pobranie ICS. To liczba kliknięć, nie subskrybentów. Kolejne kliknięcia tej samej osoby też się liczą.</p>
+      <p><small id="clicks-status" role="status">Wczytywanie wspólnego licznika…</small></p>
+    </div>
   </section>
   <section class="card" aria-labelledby="status-heading">
     <h2 id="status-heading">Stan aktualizacji</h2>
@@ -96,6 +113,7 @@
   </section>
   <p class="muted">Źródła: <a href="https://www.pzps.pl/pl/kalendarium">PZPS — Seniorzy</a> oraz <a href="https://www-old.cev.eu/Competition-Area/CompetitionView.aspx?CID=12862&amp;ID=1572&amp;PID=2990">CEV — ME 2026</a>. Sprawdzamy bieżący i następny rok. Zakres zależy od kompletności danych PZPS. Potwierdzony mecz bez godziny pojawia się jako całodniowy, z adnotacją „godzina do potwierdzenia”.</p>
   <p class="muted">Kalendarz i kod projektu zostały wygenerowane z pomocą AI (ChatGPT). Terminy meczów są pobierane automatycznie z PZPS i CEV. To niezależny projekt kibicowski.</p>
+  <p class="muted"><small>Licznik obsługuje <a href="https://countapi.mileshilliard.com/" rel="noreferrer">CountAPI</a>. Przeglądarka łączy się z tą usługą, żeby odczytać wynik i zapisać kliknięcie. Licznik jest orientacyjny i nie korzysta z identyfikatorów użytkowników ani plików cookie ustawianych przez nasz kod.</small></p>
 </main>
 <script>
 const url = new URL('calendar.ics', location.href).href;
@@ -137,6 +155,80 @@ Promise.all([get('status.json'),get('history.json')]).then(([s, history]) => {
   document.getElementById('result').textContent = 'Nie można odczytać statusu';
   document.getElementById('entries').textContent = 'Dziennik jest chwilowo niedostępny.';
 });
+</script>
+<script>
+(() => {
+  // Public counter identifier, not a secret. Keep unchanged across deployments.
+  const key = 'erasmous03-volley-1367790014-clicks-80d6d53cb3fe4ed9b032';
+  const base = 'https://countapi.mileshilliard.com/api/v1/';
+  const output = document.getElementById('calendar-clicks');
+  const status = document.getElementById('clicks-status');
+  let pending = 0;
+  let generation = 0;
+  let displayed = null;
+  let lastFailed = false;
+
+  async function request(action) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+    try {
+      const response = await fetch(base + action + '/' + key, {
+        mode: 'cors', credentials: 'omit', cache: 'no-store',
+        referrerPolicy: 'no-referrer', keepalive: action === 'hit', signal: controller.signal
+      });
+      if (action === 'get' && response.status === 404) return 0;
+      if (!response.ok) throw new Error('Counter HTTP ' + response.status);
+      const data = await response.json();
+      if (!/^[0-9]+$/.test(String(data.value))) throw new Error('Invalid counter');
+      const value = Number(data.value);
+      if (!Number.isSafeInteger(value)) throw new Error('Invalid counter');
+      return value;
+    } finally { clearTimeout(timeout); }
+  }
+
+  function show(value) {
+    // Responses from rapid clicks can arrive out of order.
+    displayed = displayed === null ? value : Math.max(displayed, value);
+    output.textContent = displayed.toLocaleString('pl-PL');
+  }
+
+  async function read() {
+    const current = generation;
+    try {
+      const value = await request('get');
+      if (current !== generation) return;
+      show(value);
+      status.textContent = 'Łącznie od uruchomienia licznika. Odwiedziny strony nie zwiększają wyniku.';
+    } catch {
+      if (current !== generation) return;
+      status.textContent = 'Licznik jest chwilowo niedostępny. Przyciski kalendarza działają normalnie.';
+    }
+  }
+
+  function countClick(event) {
+    if (!event.isTrusted || (event.type === 'auxclick' && event.button !== 1)) return;
+    generation += 1;
+    if (pending === 0) lastFailed = false;
+    pending += 1;
+    status.textContent = 'Zapisywanie kliknięcia…';
+    // Start immediately with keepalive; never delay/cancel link navigation or clipboard.
+    request('hit').then(show).catch(() => {
+      lastFailed = true;
+    }).finally(() => {
+      pending -= 1;
+      if (pending !== 0) return;
+      status.textContent = lastFailed
+        ? 'Nie udało się potwierdzić zapisu kliknięcia. Kalendarz nadal działa.'
+        : 'Kliknięcie zapisane. Dziękujemy za korzystanie z kalendarza!';
+    });
+  }
+
+  document.querySelectorAll('[data-calendar-click]').forEach(button => {
+    button.addEventListener('click', countClick);
+    if (button.tagName === 'A') button.addEventListener('auxclick', countClick);
+  });
+  read();
+})();
 </script>
 </body>
 </html>

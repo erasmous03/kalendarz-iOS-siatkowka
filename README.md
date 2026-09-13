@@ -1,30 +1,40 @@
-# Subskrybowany kalendarz polskiej reprezentacji siatkarzy
+# 🏐 Biało-czerwoni w Twoim kalendarzu
 
 **iOS · Android · Google Calendar · Apple Calendar · Outlook · ICS**
+
+**Dodaj raz i kibicuj przez cały sezon.** Terminy, rywale i miejsca meczów polskich siatkarzy trafią prosto do Twojej aplikacji kalendarzowej. Liga Narodów, mistrzostwa Europy i świata, igrzyska, kwalifikacje i spotkania towarzyskie — w jednej subskrypcji, z codzienną kontrolą oficjalnego terminarza.
+
+Godziny uwzględniają strefy czasowe, nowe spotkania pojawiają się po publikacji przez PZPS, a dziennik aktualizacji pozwala sprawdzić, kiedy skrypt działał i co zmienił. Bez ręcznego przepisywania dat. Aktualizacje na urządzeniu pojawiają się po odświeżeniu przez dostawcę kalendarza.
+
+[Otwórz stronę i dodaj kalendarz](https://erasmous03.github.io/kalendarz-siatkowka-polska/) · [Adres ICS do subskrypcji](https://erasmous03.github.io/kalendarz-siatkowka-polska/calendar.ics)
 
 Kalendarz i kod projektu zostały wygenerowane z pomocą **AI (ChatGPT)**. Terminy pochodzą z oficjalnych danych PZPS i CEV. Jest to niezależny projekt kibicowski.
 
 Mecze seniorskiej reprezentacji Polski mężczyzn w siatkówce halowej, we wszystkich rozgrywkach publikowanych w [kalendarium PZPS](https://www.pzps.pl/pl/kalendarium): VNL, ME, MŚ, igrzyska, kwalifikacje, turnieje i mecze towarzyskie. Filtr obejmuje wyłącznie kategorię `VOLLEYBALL/NATIONAL-TEAMS/MEN` i spotkania z udziałem Polski. Nie ma ograniczenia do nazwy turnieju ani sezonu 2026.
 
-## Nazwa i opis repozytorium
+## Opis do sekcji About na GitHubie
 
-Docelowa nazwa: `kalendarz-siatkowka-polska`.
+> 🏐 Biało-czerwoni w Twoim kalendarzu! Mecze polskich siatkarzy, aktualizowane codziennie: terminy, rywale i miejsca. iOS, Android, Google Calendar i Outlook. Niezależny projekt kibicowski stworzony z pomocą AI.
 
-W ustawieniach repozytorium wybierz **Settings → General → Repository name**, wpisz tę nazwę i kliknij **Rename**. Następnie na głównej stronie repozytorium kliknij koło zębate przy **About** i wklej opis:
+Opis można wkleić po kliknięciu koła zębatego przy **About**. Pole **Website**: `https://erasmous03.github.io/kalendarz-siatkowka-polska/`.
 
-> Subskrybowany kalendarz meczów reprezentacji Polski mężczyzn w siatkówce. iOS, Android, Google Calendar i Outlook. Codzienne aktualizacje i logi. Projekt wygenerowany z pomocą AI.
+## Licznik kliknięć
 
-Po zmianie nazwy uruchom **Actions → Aktualizuj kalendarz reprezentacji → Run workflow**. Po zakończeniu publikacji docelowa strona będzie pod adresem:
+Strona pokazuje wspólną liczbę kliknięć pięciu przycisków: Apple, Google/Android, Outlook, kopiowanie adresu i pobranie ICS. Samo wyświetlenie strony nie zwiększa licznika. Ponowne kliknięcia tej samej osoby są liczone ponownie. Kliknięcie nie potwierdza dodania subskrypcji ani pomyślnego importu.
 
-https://erasmous03.github.io/kalendarz-siatkowka-polska/
+Wynik przechowuje zewnętrzna [usługa CountAPI](https://countapi.mileshilliard.com/) — GitHub Pages nie zapisuje danych odwiedzających na serwerze. Integracja nie wymaga rejestracji ani klucza API. Kod naszej strony nie ustawia plików cookie ani identyfikatorów użytkowników; wysyła żądania odczytu i zwiększenia licznika, bez danych formularzy i bez nagłówka Referer. Operator usługi otrzymuje zwykłe dane połączenia sieciowego, w tym adres IP.
 
-Nowy adres subskrypcji:
+To statystyka orientacyjna: publiczny licznik można zmodyfikować poza stroną, blokery lub awarie usługi mogą pominąć kliknięcia, a dostawca nie gwarantuje dostępności. Nie służy do rozliczeń ani pomiaru unikalnych użytkowników. Nie rekonstruuje kliknięć sprzed wdrożenia.
 
-https://erasmous03.github.io/kalendarz-siatkowka-polska/calendar.ics
+Przy niedostępności API strona wyświetla komunikat; dodawanie kalendarza działa niezależnie. Nie pokazuje wymyślonego wyniku i nie zastępuje wspólnego licznika liczbą zapisaną lokalnie. Żądania zapisu nie blokują otwierania linków. Nie ma automatycznych ponowień zapisu, które mogłyby policzyć to samo kliknięcie dwa razy.
 
-Wpisz adres strony także w polu **Website** przy **About**. Przyciski na stronie same wyliczają adres ICS na podstawie miejsca publikacji.
+Stały identyfikator licznika jest w końcowym skrypcie `site/index.html`. Zachowaj go przy aktualizacjach. Fork projektu powinien używać własnego identyfikatora, aby nie mieszać statystyk.
 
-**Zmiana nazwy zmienia adres Pages.** GitHub przekierowuje repozytorium, ale nie stronę projektu. Po sprawdzeniu nowego adresu zmień subskrypcję na urządzeniach; jeśli aplikacja nie pozwala edytować URL, usuń starą subskrypcję i dodaj nową. [Dokumentacja GitHub](https://docs.github.com/en/repositories/creating-and-managing-repositories/renaming-a-repository).
+### Wdrożenie tej aktualizacji
+
+Podmień `site/index.html` i `README.md`, następnie wybierz **Actions → Aktualizuj kalendarz reprezentacji → Run workflow → main → Run workflow**. Obecny workflow nie uruchamia się automatycznie po zmianie samego HTML lub README. Nie trzeba zmieniać adresu subskrypcji, skryptu pobierającego mecze ani plików danych.
+
+Po publikacji sprawdź, czy sekcja licznika wyświetla liczbę. Kliknij raz jeden z przycisków, następnie otwórz stronę w innym oknie i porównaj wynik. Ten test będzie rzeczywistym kliknięciem. Jeżeli API odmawia dostępu, widoczny będzie komunikat o niedostępności zamiast liczby; trzeba wtedy rozwiązać problem z dostawcą lub zmienić usługę.
 
 ## Dodawanie na urządzeniach
 
