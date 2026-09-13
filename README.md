@@ -6,16 +6,6 @@ Kalendarz i kod projektu zostały wygenerowane z pomocą **AI (ChatGPT)**. Termi
 
 Mecze seniorskiej reprezentacji Polski mężczyzn w siatkówce halowej, we wszystkich rozgrywkach publikowanych w [kalendarium PZPS](https://www.pzps.pl/pl/kalendarium): VNL, ME, MŚ, igrzyska, kwalifikacje, turnieje i mecze towarzyskie. Filtr obejmuje wyłącznie kategorię `VOLLEYBALL/NATIONAL-TEAMS/MEN` i spotkania z udziałem Polski. Nie ma ograniczenia do nazwy turnieju ani sezonu 2026.
 
-## Aktualizacja działającego projektu
-
-Zastąp `updater.py`, `site/index.html` i `README.md`. Zachowaj istniejące foldery `data`, pliki JSON/ICS w `site` oraz workflow. Paczka aktualizacyjna zawiera wyłącznie te trzy zmienione pliki i nie zawiera plików ukrytych.
-
-Zmiana `updater.py` w gałęzi `main` uruchomi istniejące zadanie. Poczekaj na zakończenie w Actions. Adres kalendarza pozostaje taki sam:
-
-https://erasmous03.github.io/kalendarz-iOS-siatkowka/calendar.ics
-
-Przy zachowaniu nazwy repozytorium istniejącej subskrypcji nie trzeba dodawać ponownie. Zmiany pojawią się po odświeżeniu przez dostawcę kalendarza. Stary workflow może nadal wyświetlać słowo „CEV” w nazwie kroku lub commita — uruchamia nowy skrypt sprawdzający oba źródła.
-
 ## Nazwa i opis repozytorium
 
 Docelowa nazwa: `kalendarz-siatkowka-polska`.
