@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Synchronize confirmed Poland men's EuroVolley 2026 fixtures from CEV."""
+"""Synchronize Poland's senior men's fixtures from PZPS and CEV (stdlib only)."""
 
 from __future__ import annotations
 
@@ -12,11 +12,14 @@ import time
 import urllib.error
 import urllib.parse
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
 SOURCE = "https://www-old.cev.eu/Competition-Area/CompetitionView.aspx?CID=12862&ID=1572&PID=2990"
+PZPS = "https://www.pzps.pl/strapi/api/events"
+CATEGORY = "VOLLEYBALL/NATIONAL-TEAMS/MEN"
 DATA = Path("data")
 SITE = Path("site")
 MATCH = re.compile(r'<span id="([^"]+)_LB_FederationMatchNumber"[^>]*>(.*?)</span>', re.S)
@@ -99,20 +102,127 @@ def parse_fixtures(page: str) -> tuple[list[dict], int]:
     return sorted(found, key=lambda item: (item["start_utc"], item["id"])), waiting
 
 
-def fetch() -> str:
-    request = urllib.request.Request(SOURCE, headers={"User-Agent": "PolandVolleyballCalendar/1.0 (personal calendar)", "Accept": "text/html"})
+def fetch(url: str = SOURCE) -> str:
+    request = urllib.request.Request(url, headers={"User-Agent": "PolandVolleyballCalendar/2.0 (personal calendar)", "Accept": "application/json,text/html"})
     for attempt in range(3):
         try:
             with urllib.request.urlopen(request, timeout=35) as response:
                 content = response.read(3_000_001)
                 if len(content) > 3_000_000:
-                    raise ValueError("Odpowiedź CEV przekracza dopuszczalny rozmiar")
+                    raise ValueError("Odpowiedź źródła przekracza dopuszczalny rozmiar")
                 return content.decode("utf-8-sig", errors="replace")
         except (urllib.error.URLError, TimeoutError) as exc:
             if attempt == 2:
-                raise RuntimeError(f"Błąd pobierania CEV: {exc}") from exc
+                raise RuntimeError(f"Błąd pobierania {urllib.parse.urlsplit(url).hostname}: {exc}") from exc
             time.sleep(2 ** attempt)
     raise AssertionError("unreachable")
+
+
+def polish_wall_time(value: str) -> datetime:
+    # PZPS's public calendar renders startsAt.split('T')[1] directly (getStartTime).
+    # Its trailing Z is a storage convention, NOT UTC: e.g. 2026-09-13T18:00Z
+    # means 18:00 Warsaw, matching CEV's 19:00 Sofia. Never convert it twice.
+    local = datetime.fromisoformat(value.replace("Z", "+00:00")).replace(tzinfo=None)
+    zone = ZoneInfo("Europe/Warsaw")
+    candidates = {local.replace(tzinfo=zone, fold=fold).astimezone(timezone.utc)
+                  for fold in (0, 1)
+                  if local.replace(tzinfo=zone, fold=fold).astimezone(timezone.utc)
+                  .astimezone(zone).replace(tzinfo=None) == local}
+    if len(candidates) != 1:
+        raise ValueError(f"Niejednoznaczna lub nieistniejąca godzina PZPS: {value}")
+    return candidates.pop()
+
+
+def parse_pzps(payload: dict, year: int) -> tuple[list[dict], int]:
+    data = payload.get("data")
+    if not isinstance(data, dict) or not all(isinstance(data.get(k), list) for k in ("matches", "events")):
+        raise ValueError("Nieprawidłowa struktura kalendarium PZPS")
+    if len(data["events"]) >= 100 or len(data["matches"]) >= 100:
+        raise ValueError("Możliwe obcięcie odpowiedzi PZPS (limit 100)")
+    # The flat list omits some last matches. Include tournament children as well.
+    rows = {str(m["id"]): m for m in data["matches"]}
+    for tournament in data["events"]:
+        for match in tournament.get("matches", []):
+            rows.setdefault(str(match["id"]), match)
+    fixtures, waiting = [], 0
+    for match in rows.values():
+        if ((match.get("category") or {}).get("categoryType") != CATEGORY
+                or match.get("_softDeletedAt") or not match.get("publishedAt")):
+            continue
+        title = plain(match.get("title") or "")
+        # Category includes other countries' games in tournaments held in Poland.
+        sides = re.split(r"\s*[-–—]\s*", title.split("|")[-1].strip())
+        if len(sides) != 2 or not any(s.casefold() == "polska" for s in sides):
+            continue
+        if any(not s or re.search(r"\b(tbd|zwycięzca|przegrany|\d+[a-z])\b|\?", s, re.I) for s in sides):
+            waiting += 1
+            continue
+        value = match.get("startsAt")
+        if not value:
+            waiting += 1
+            continue
+        if not year <= int(value[:4]) <= year + 1:
+            continue
+        competition = plain(match.get("tournamentTitle") or "Mecz reprezentacji Polski")
+        url = match.get("otherLinkLink") or "https://www.pzps.pl/pl/kalendarium"
+        if urllib.parse.urlsplit(url).scheme not in ("https", "http"):
+            url = "https://www.pzps.pl/pl/kalendarium"
+        cev_id = urllib.parse.parse_qs(urllib.parse.urlsplit(url).query).get("mID", [None])[0]
+        is_cev_2026 = (urllib.parse.urlsplit(url).hostname == "www-old.cev.eu"
+                       and "2026" in competition and "EuroVolley" in competition and cev_id)
+        event_id = cev_id if is_cev_2026 else "pzps-" + str(match["id"])
+        item = {"id": event_id, "pzps_id": str(match["id"]), "code": "PZPS-" + str(match["id"]),
+                "title": " – ".join(sides) + " | " + competition,
+                "competition": competition, "stage": title.split("|")[0].strip() if "|" in title else "",
+                "location": plain(match.get("place") or "Miejsce do potwierdzenia"), "url": url}
+        if match.get("isStartHourHidden") is True:
+            # Publish a known date without inventing a kick-off time.
+            item["start_date"] = value[:10]
+            waiting += 1
+        else:
+            item["start_utc"] = polish_wall_time(value).isoformat().replace("+00:00", "Z")
+        fixtures.append(item)
+    return fixtures, waiting
+
+
+def fetch_pzps(year: int) -> tuple[list[dict], int]:
+    urls = []
+    for y in (year, year + 1):
+        for month in (1, 4, 7, 10):
+            end = f"{y + 1}-01-01" if month == 10 else f"{y}-{month + 3:02d}-01"
+            params = {"pagination[limit]": 100, "locale": "pl-PL", "category": CATEGORY,
+                      "start": f"{y}-{month:02d}-01T00:00:00.000Z", "end": end + "T00:00:00.000Z"}
+            urls.append(PZPS + "?" + urllib.parse.urlencode(params))
+    merged = {}
+    with ThreadPoolExecutor(max_workers=4) as pool:
+        for page in pool.map(fetch, urls):
+            fixtures, _ = parse_pzps(json.loads(page), year)
+            for item in fixtures:
+                merged[item["id"]] = item
+    return list(merged.values()), sum("start_date" in item for item in merged.values())
+
+
+def identity_match(item: dict, candidates: dict) -> dict | None:
+    if item["id"] in candidates:
+        return candidates[item["id"]]
+    if item.get("pzps_id"):
+        found = [v for v in candidates.values() if v.get("pzps_id") == item["pzps_id"]]
+        if len(found) == 1:
+            return found[0]
+    # Some PZPS rows link to the tournament instead of the individual CEV match.
+    # Only coalesce this known competition, same opponents and same Polish date.
+    def signature(event):
+        comp = event.get("competition", "CEV Mistrzostwa Europy 2026" if event["id"].isdigit() else "")
+        if "2026" not in comp or not ("EuroVolley" in comp or "Mistrzostwa Europy" in comp):
+            return None
+        date = event.get("start_date")
+        if not date:
+            date = datetime.fromisoformat(event["start_utc"].replace("Z", "+00:00")).astimezone(ZoneInfo("Europe/Warsaw")).date().isoformat()
+        teams = tuple(sorted(s.strip().casefold() for s in re.split(r"[-–—]", event["title"].split("|")[0])))
+        return date, teams
+    key = signature(item)
+    found = [v for v in candidates.values() if key and signature(v) == key]
+    return found[0] if len(found) == 1 else None
 
 
 def read_json(path: Path, default):
@@ -141,37 +251,90 @@ def fold(line: str) -> str:
 
 
 def render_ics(events: list[dict]) -> bytes:
-    lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Polska Siatkowka//Mecze seniorow CEV//PL", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "X-WR-CALNAME:Polska siatkówka – seniorzy (ME 2026)", "X-WR-TIMEZONE:Europe/Warsaw", "REFRESH-INTERVAL;VALUE=DURATION:P1D", "X-PUBLISHED-TTL:P1D"]
+    lines = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//Polska Siatkowka//Mecze seniorow//PL", "CALSCALE:GREGORIAN", "METHOD:PUBLISH", "X-WR-CALNAME:Polska siatkówka – seniorzy", "X-WR-TIMEZONE:Europe/Warsaw", "REFRESH-INTERVAL;VALUE=DURATION:P1D", "X-PUBLISHED-TTL:P1D"]
+    lines.append("X-WR-CALDESC:Kalendarz wygenerowany z pomocą AI (ChatGPT). Terminy z PZPS i CEV.")
     for event in events:
-        start = datetime.fromisoformat(event["start_utc"].replace("Z", "+00:00"))
         modified = datetime.fromisoformat(event["modified_utc"].replace("Z", "+00:00"))
         fmt = lambda dt: dt.strftime("%Y%m%dT%H%M%SZ")
+        uid = (f"{event['id']}@polska-siatkowka" if event['id'].startswith("pzps-")
+               else f"cev-eurovolley-2026-men-{event['id']}@polska-siatkowka")
+        if "start_date" in event:
+            start = datetime.fromisoformat(event["start_date"])
+            dates = [f"DTSTART;VALUE=DATE:{start:%Y%m%d}", f"DTEND;VALUE=DATE:{start + timedelta(days=1):%Y%m%d}"]
+            time_note = "Godzina rozpoczęcia do potwierdzenia."
+        else:
+            start = datetime.fromisoformat(event["start_utc"].replace("Z", "+00:00"))
+            dates = [f"DTSTART:{fmt(start)}", f"DTEND:{fmt(start + timedelta(hours=3))}"]
+            time_note = "Godzina w Polsce: " + start.astimezone(ZoneInfo("Europe/Warsaw")).strftime("%d.%m.%Y %H:%M") + ". Czas trwania wpisu: szacunkowe 3 godziny."
+        description = "Reprezentacja Polski seniorów (mężczyźni). " + event.get("competition", "CEV Mistrzostwa Europy 2026")
+        if event.get("stage"):
+            description += ", " + event["stage"]
+        description += ". " + time_note
         lines.extend([
-            "BEGIN:VEVENT", f"UID:cev-eurovolley-2026-men-{event['id']}@polska-siatkowka", f"SEQUENCE:{event['sequence']}",
-            f"DTSTAMP:{fmt(modified)}", f"LAST-MODIFIED:{fmt(modified)}", f"DTSTART:{fmt(start)}",
-            f"DTEND:{fmt(start + timedelta(hours=3))}", f"SUMMARY:{ics_escape(event['title'])}",
+            "BEGIN:VEVENT", f"UID:{uid}", f"SEQUENCE:{event['sequence']}",
+            f"DTSTAMP:{fmt(modified)}", f"LAST-MODIFIED:{fmt(modified)}", *dates,
+            f"SUMMARY:{ics_escape(event['title'])}",
             f"LOCATION:{ics_escape(event['location'])}",
-            f"DESCRIPTION:{ics_escape('Reprezentacja Polski seniorów (mężczyźni). CEV Mistrzostwa Europy 2026, ' + event['stage'] + '. Godzina rozpoczęcia meczu.')}",
+            f"DESCRIPTION:{ics_escape(description)}",
             f"URL:{event['url']}", "END:VEVENT",
         ])
     lines.append("END:VCALENDAR")
     return ("\r\n".join(fold(line) for line in lines) + "\r\n").encode("utf-8")
 
 
-def update(page: str | None = None) -> dict:
+def update(page: str | None = None, pzps_payload: dict | None = None) -> dict:
     DATA.mkdir(exist_ok=True)
     SITE.mkdir(exist_ok=True)
     now = datetime.now(timezone.utc).isoformat(timespec="seconds").replace("+00:00", "Z")
     old = read_json(DATA / "matches.json", [])
     previous = {event["id"]: event for event in old}
     status = read_json(DATA / "status.json", {})
-    entry = {"checked_at_utc": now, "result": "ok", "added": [], "updated": [], "confirmed_in_source": 0, "awaiting_schedule": 0}
+    entry = {"checked_at_utc": now, "result": "ok", "added": [], "updated": [], "confirmed_in_source": 0, "awaiting_schedule": 0, "sources": {}}
+    year = datetime.now(ZoneInfo("Europe/Warsaw")).year
+    collected = {}
+    for name, loader in [
+        ("PZPS", lambda: parse_pzps(pzps_payload, year) if pzps_payload is not None else fetch_pzps(year)),
+        *([("CEV ME 2026", lambda: parse_fixtures(page if page is not None else fetch()))] if year <= 2026 or page is not None else []),
+    ]:
+        try:
+            fixtures, waiting = loader()
+            entry["sources"][name] = {"result": "ok", "matches": len(fixtures), "awaiting_schedule": waiting}
+            entry["awaiting_schedule"] += waiting
+            for item in fixtures:
+                item = dict(item)
+                if name.startswith("CEV"):
+                    item["competition"] = "CEV Mistrzostwa Europy 2026"
+                former = identity_match(item, previous)
+                if former:
+                    item["id"] = former["id"]
+                    if former.get("pzps_id"):
+                        item.setdefault("pzps_id", former["pzps_id"])
+                peer = identity_match(item, collected)
+                if peer:
+                    collected.pop(peer["id"])
+                    item = {**peer, **item}
+                # CEV has venue-local times, exact halls and stages; prefer those.
+                item = {**collected.get(item["id"], {}), **item}
+                if "start_utc" in item:
+                    item.pop("start_date", None)
+                collected[item["id"]] = item
+        except Exception as exc:
+            entry["sources"][name] = {"result": "error", "error": str(exc)}
+    errors = [name + ": " + value["error"] for name, value in entry["sources"].items() if value["result"] == "error"]
+    if errors:
+        entry["result"] = "partial" if any(v["result"] == "ok" for v in entry["sources"].values()) else "error"
+        entry["error"] = " | ".join(errors)
     try:
-        fixtures, waiting = parse_fixtures(page if page is not None else fetch())
-        entry["confirmed_in_source"], entry["awaiting_schedule"] = len(fixtures), waiting
+        if entry["result"] == "error":
+            raise ValueError(entry["error"])
+        entry["confirmed_in_source"] = len(collected)
         merged = dict(previous)
-        for item in fixtures:
+        for item in collected.values():
             former = previous.get(item["id"])
+            if former is None and item.get("pzps_id"):
+                former = next((v for v in previous.values() if v.get("pzps_id") == item["pzps_id"]), None)
+                if former:
+                    item["id"] = former["id"]  # Preserve UID if a CEV link appears later.
             if former is None:
                 item["sequence"], item["modified_utc"] = 0, now
                 entry["added"].append(item["code"])
@@ -181,15 +344,21 @@ def update(page: str | None = None) -> dict:
             else:
                 item["sequence"], item["modified_utc"] = former["sequence"], former["modified_utc"]
             merged[item["id"]] = item
-        all_events = sorted(merged.values(), key=lambda x: (x["start_utc"], x["id"]))
-        # No event is removed merely because CEV has a temporary omission.
+        all_events = sorted(merged.values(), key=lambda x: (x.get("start_utc", x.get("start_date", "")), x["id"]))
+        # No event is removed merely because a source has a temporary omission.
+        calendar = render_ics(all_events)
         save_json(DATA / "matches.json", all_events)
-        (SITE / "calendar.ics").write_bytes(render_ics(all_events))
-        status["last_success_utc"] = now
+        (SITE / "calendar.ics").write_bytes(calendar)
+        if entry["result"] == "ok":
+            status["last_success_utc"] = now
         status["match_count"] = len(all_events)
     except Exception as exc:
         entry["result"], entry["error"] = "error", str(exc)
-        status["last_error"] = str(exc)
+    if entry.get("error"):
+        status["last_error"] = entry["error"]
+    else:
+        status.pop("last_error", None)
+    status["sources"] = entry["sources"]
     status["last_run_utc"], status["last_result"] = now, entry["result"]
     status["last_added"], status["last_updated"] = entry["added"], entry["updated"]
     save_json(DATA / "status.json", status)
@@ -205,6 +374,8 @@ def update(page: str | None = None) -> dict:
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--fixture", help="Local CEV HTML fixture for testing")
+    parser.add_argument("--pzps-fixture", help="Local PZPS JSON fixture for testing")
     args = parser.parse_args()
-    outcome = update(Path(args.fixture).read_text(encoding="utf-8-sig") if args.fixture else None)
+    outcome = update(Path(args.fixture).read_text(encoding="utf-8-sig") if args.fixture else None,
+                     read_json(Path(args.pzps_fixture), {}) if args.pzps_fixture else None)
     sys.exit(0 if outcome["result"] == "ok" else 1)

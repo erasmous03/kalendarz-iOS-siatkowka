@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10213f">
+  <meta name="description" content="Subskrybowany kalendarz meczów reprezentacji Polski mężczyzn w siatkówce. iOS, Android, Google Calendar i Outlook. Codzienne aktualizacje i logi. Projekt wygenerowany z pomocą AI.">
   <title>Reprezentacja Polski w siatkówce – kalendarz i logi</title>
   <style>
     :root { font-family: system-ui, -apple-system, sans-serif; color: #eaf1fb; background: #0a1529; }
@@ -28,20 +29,55 @@
     .entries { list-style: none; padding: 0; }
     .entries li { padding: 14px 0; border-bottom: 1px solid #315077; }
     small { color: #b4c3d9; }
+    details { border-top: 1px solid #315077; padding: 16px 0; }
+    summary { cursor: pointer; font-weight: 650; }
+    .buttons { display: flex; gap: 10px; flex-wrap: wrap; }
+    .secondary { background: #244872; }
   </style>
 </head>
 <body>
 <main>
   <div class="eyebrow">Siatkówka · reprezentacja Polski mężczyzn</div>
   <h1>Mecze seniorów w Twoim kalendarzu</h1>
-  <p>Subskrybuj potwierdzone mecze mistrzostw Europy 2026. Po aktualizacji terminarza CEV ten sam adres kalendarza zawiera nowe i poprawione wydarzenia.</p>
+  <p>Subskrybuj mecze polskiej reprezentacji seniorów we wszystkich rozgrywkach: Lidze Narodów, mistrzostwach Europy i świata, igrzyskach, kwalifikacjach oraz turniejach i meczach towarzyskich. Codziennie sprawdzamy kalendarium PZPS; wydarzenia pojawiają się po opublikowaniu terminarza przez związek.</p>
   <section class="card" aria-labelledby="subscribe-heading">
-    <h2 id="subscribe-heading">Adres subskrypcji</h2>
-    <p>W iPhonie: <strong>Ustawienia → Aplikacje → Kalendarz → Konta kalendarza → Dodaj konto → Inne → Dodaj kalendarz subskrybowany</strong>. Wklej adres poniższego pliku. Samo otwarcie pliku ICS importuje jednorazowo; subskrypcja wymaga dodania adresu URL.</p>
+    <h2 id="subscribe-heading">Dodaj do swojego kalendarza</h2>
+    <p>Wybierz <strong>subskrypcję</strong>, aby otrzymywać nowe mecze i korekty terminów. Działa przez ten sam publiczny adres ICS na różnych urządzeniach.</p>
+    <div class="buttons">
+      <a class="button" id="apple" href="calendar.ics">Apple / subskrypcja webcal</a>
+      <a class="button secondary" href="https://calendar.google.com/calendar/u/0/r/settings/addbyurl" target="_blank" rel="noopener">Google Calendar / Android</a>
+      <a class="button secondary" href="https://outlook.live.com/calendar/" target="_blank" rel="noopener">Outlook</a>
+    </div>
     <button class="button" id="copy" type="button">Kopiuj adres subskrypcji</button>
     <span id="copy-status" role="status"></span>
     <p><code id="url" style="overflow-wrap:anywhere"></code></p>
     <p class="muted">Godziny wydarzeń dostosują się do strefy czasowej telefonu. O częstotliwości pobierania zmian przez iPhone decyduje aplikacja Kalendarz.</p>
+    <details>
+      <summary>iPhone, iPad i Mac — Apple Calendar</summary>
+      <p>Przycisk Apple otwiera adres webcal w aplikacji obsługującej subskrypcje. Jeśli urządzenie go nie obsługuje, skopiuj adres HTTPS powyżej.</p>
+      <p>Na iPhonie: <strong>Ustawienia → Aplikacje → Kalendarz → Konta kalendarza → Dodaj konto → Inne → Dodaj kalendarz subskrybowany</strong>. Na Macu: <strong>Kalendarz → Plik → Nowa subskrypcja kalendarza</strong>. Wklej adres i zapisz.</p>
+    </details>
+    <details>
+      <summary>Android i Google Calendar</summary>
+      <ol>
+        <li>Skopiuj adres subskrypcji powyżej.</li>
+        <li>Na komputerze otwórz Google Calendar na tym samym koncie co w telefonie. Wybierz <strong>Inne kalendarze → + → Z adresu URL</strong> lub użyj przycisku Google Calendar.</li>
+        <li>Wklej adres i kliknij <strong>Dodaj kalendarz</strong>.</li>
+        <li>W aplikacji Google Calendar na Androidzie otwórz menu i zaznacz nowy kalendarz. W razie potrzeby włącz jego synchronizację w ustawieniach aplikacji.</li>
+      </ol>
+      <p>Google wymaga dodania subskrypcji w przeglądarce na komputerze; aplikacja mobilna nie ma opcji „Z adresu URL”. Aktualizacje pobiera Google we własnym rytmie. <a href="https://support.google.com/calendar/answer/37100?hl=pl&amp;co=GENIE.Platform%3DDesktop">Instrukcja Google</a>.</p>
+    </details>
+    <details>
+      <summary>Outlook i Microsoft 365</summary>
+      <p>W Outlooku w przeglądarce otwórz <strong>Kalendarz → Dodaj kalendarz → Subskrybuj z internetu</strong>. Wklej adres HTTPS, nadaj nazwę i zapisz. Dla konta służbowego wykonaj te kroki w swoim Outlooku Microsoft 365.</p>
+      <p>Wybierz subskrypcję z internetu, aby Outlook pobierał zmiany. <a href="https://support.microsoft.com/en-us/outlook/import-or-subscribe-to-a-calendar-in-outlook-com-or-outlook-on-the-web">Instrukcja Microsoft</a>.</p>
+    </details>
+    <details>
+      <summary>Inne aplikacje lub jednorazowy import ICS</summary>
+      <p>W aplikacji obsługującej kalendarze internetowe wybierz subskrypcję iCal/ICS lub webcal i wklej adres powyżej. Obsługa zależy od aplikacji.</p>
+      <a class="button secondary" href="calendar.ics" download="polska-siatkowka-mezczyzni.ics">Pobierz plik ICS</a>
+      <p>Ten plik służy do <strong>jednorazowego importu</strong> w aplikacjach obsługujących ICS. Zaimportowane wydarzenia nie dostaną późniejszych aktualizacji. Aby uniknąć duplikatów, wybierz import albo subskrypcję.</p>
+    </details>
   </section>
   <section class="card" aria-labelledby="status-heading">
     <h2 id="status-heading">Stan aktualizacji</h2>
@@ -51,16 +87,19 @@
       <div><div class="label">Zapisane mecze</div><div class="value" id="count">—</div></div>
     </div>
     <p id="health"></p>
+    <ul id="sources"></ul>
   </section>
   <section class="card" aria-labelledby="history-heading">
     <h2 id="history-heading">Dziennik ostatnich kontroli</h2>
     <ul class="entries" id="entries"><li>Wczytywanie…</li></ul>
     <p><a href="history.json">Pobierz dziennik (JSON)</a> · <a href="status.json">Pobierz status (JSON)</a></p>
   </section>
-  <p class="muted">Źródło: <a href="https://www-old.cev.eu/Competition-Area/CompetitionView.aspx?CID=12862&amp;ID=1572&amp;PID=2990">oficjalny terminarz CEV</a>. Do kalendarza trafiają tylko spotkania, w których CEV wskazał Polskę, godzinę i miejsce.</p>
+  <p class="muted">Źródła: <a href="https://www.pzps.pl/pl/kalendarium">PZPS — Seniorzy</a> oraz <a href="https://www-old.cev.eu/Competition-Area/CompetitionView.aspx?CID=12862&amp;ID=1572&amp;PID=2990">CEV — ME 2026</a>. Sprawdzamy bieżący i następny rok. Zakres zależy od kompletności danych PZPS. Potwierdzony mecz bez godziny pojawia się jako całodniowy, z adnotacją „godzina do potwierdzenia”.</p>
+  <p class="muted">Kalendarz i kod projektu zostały wygenerowane z pomocą AI (ChatGPT). Terminy meczów są pobierane automatycznie z PZPS i CEV. To niezależny projekt kibicowski.</p>
 </main>
 <script>
 const url = new URL('calendar.ics', location.href).href;
+document.getElementById('apple').href = url.replace(/^https?:/, 'webcal:');
 document.getElementById('url').textContent = url;
 document.getElementById('copy').addEventListener('click', async () => {
   try { await navigator.clipboard.writeText(url); document.getElementById('copy-status').textContent = 'Skopiowano'; }
@@ -72,22 +111,26 @@ Promise.all([get('status.json'),get('history.json')]).then(([s, history]) => {
   document.getElementById('checked').textContent = local(s.last_run_utc);
   document.getElementById('count').textContent = s.match_count ?? '—';
   const result = document.getElementById('result');
-  result.textContent = s.last_result === 'ok' ? 'Zakończono poprawnie' : 'Błąd — zachowano kalendarz';
+  result.textContent = s.last_result === 'ok' ? 'Zakończono poprawnie' : s.last_result === 'partial' ? 'Część źródeł niedostępna' : 'Błąd — zachowano kalendarz';
   result.className = 'value ' + (s.last_result === 'ok' ? 'ok' : 'bad');
   const age = Date.now() - new Date(s.last_run_utc).getTime();
   const health = document.getElementById('health');
   if (age > 36 * 3600 * 1000) { health.textContent = 'Uwaga: ostatnia kontrola była ponad 36 godzin temu. Sprawdź historię uruchomień na GitHubie.'; health.className = 'bad'; }
-  else if (s.last_result === 'error') { health.textContent = s.last_error || 'Ostatnia kontrola nie powiodła się.'; health.className = 'bad'; }
+  else if (s.last_result !== 'ok') { health.textContent = s.last_error || 'Ostatnia kontrola nie powiodła się.'; health.className = 'bad'; }
   else health.textContent = 'Kalendarz jest aktualizowany raz dziennie.';
+  document.getElementById('sources').replaceChildren(...Object.entries(s.sources || {}).map(([name, source]) => {
+    const li = document.createElement('li');
+    li.textContent = name + ': ' + (source.result === 'ok' ? `OK · mecze: ${source.matches} · oczekujące na pełny termin: ${source.awaiting_schedule}` : source.error);
+    li.className = source.result === 'ok' ? 'ok' : 'bad';
+    return li;
+  }));
   document.getElementById('entries').replaceChildren(...history.slice(0,30).map(item => {
     const li = document.createElement('li');
     const head = document.createElement('strong');
-    head.textContent = local(item.checked_at_utc) + ' · ' + (item.result === 'ok' ? 'OK' : 'BŁĄD');
+    head.textContent = local(item.checked_at_utc) + ' · ' + (item.result === 'ok' ? 'OK' : item.result === 'partial' ? 'CZĘŚCIOWO' : 'BŁĄD');
     head.className = item.result === 'ok' ? 'ok' : 'bad';
     const detail = document.createElement('div');
-    detail.textContent = item.result === 'ok'
-      ? `Dodano: ${item.added.join(', ') || '0'} · Zmieniono: ${item.updated.join(', ') || '0'} · W źródle: ${item.confirmed_in_source}`
-      : item.error;
+    detail.textContent = `Dodano: ${item.added.join(', ') || '0'} · Zmieniono: ${item.updated.join(', ') || '0'} · Potwierdzone mecze: ${item.confirmed_in_source}` + (item.error ? ' · ' + item.error : '');
     li.append(head, detail); return li;
   }));
 }).catch(() => {
