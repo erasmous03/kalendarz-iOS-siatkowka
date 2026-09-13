@@ -1,0 +1,57 @@
+[
+  {
+    "id": "84811",
+    "code": "MFB-02",
+    "start_utc": "2026-09-10T13:00:00Z",
+    "title": "Polska – Portugalia | ME 2026",
+    "stage": "faza grupowa, grupa B",
+    "location": "Arena 8888, Sofia, Bułgaria",
+    "url": "https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84811&ID=1572",
+    "sequence": 0,
+    "modified_utc": "2026-09-12T21:07:08Z"
+  },
+  {
+    "id": "84482",
+    "code": "MFB-06",
+    "start_utc": "2026-09-12T13:00:00Z",
+    "title": "Polska – Izrael | ME 2026",
+    "stage": "faza grupowa, grupa B",
+    "location": "Arena 8888, Sofia, Bułgaria",
+    "url": "https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84482&ID=1572",
+    "sequence": 0,
+    "modified_utc": "2026-09-12T21:07:08Z"
+  },
+  {
+    "id": "84485",
+    "code": "MFB-09",
+    "start_utc": "2026-09-13T16:00:00Z",
+    "title": "Macedonia Północna – Polska | ME 2026",
+    "stage": "faza grupowa, grupa B",
+    "location": "Arena 8888, Sofia, Bułgaria",
+    "url": "https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84485&ID=1572",
+    "sequence": 0,
+    "modified_utc": "2026-09-12T21:07:08Z"
+  },
+  {
+    "id": "84489",
+    "code": "MFB-13",
+    "start_utc": "2026-09-15T16:00:00Z",
+    "title": "Polska – Ukraina | ME 2026",
+    "stage": "faza grupowa, grupa B",
+    "location": "Arena 8888, Sofia, Bułgaria",
+    "url": "https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84489&ID=1572",
+    "sequence": 0,
+    "modified_utc": "2026-09-12T21:07:08Z"
+  },
+  {
+    "id": "84491",
+    "code": "MFB-15",
+    "start_utc": "2026-09-16T16:00:00Z",
+    "title": "Polska – Bułgaria | ME 2026",
+    "stage": "faza grupowa, grupa B",
+    "location": "Arena 8888, Sofia, Bułgaria",
+    "url": "https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84491&ID=1572",
+    "sequence": 0,
+    "modified_utc": "2026-09-12T21:07:08Z"
+  }
+]

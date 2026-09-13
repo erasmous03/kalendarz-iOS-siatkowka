@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10213f">
+  <title>Reprezentacja Polski w siatkówce – kalendarz i logi</title>
+  <style>
+    :root { font-family: system-ui, -apple-system, sans-serif; color: #eaf1fb; background: #0a1529; }
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 30px 18px 60px; }
+    main { max-width: 780px; margin: auto; }
+    h1 { font-size: clamp(1.7rem, 5vw, 2.6rem); line-height: 1.16; letter-spacing: -.025em; }
+    h2 { margin: 0 0 12px; font-size: 1.25rem; }
+    p { line-height: 1.55; color: #c8d7ef; }
+    .eyebrow { color: #87b8ff; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; font-size: .85rem; }
+    .card { background: #152844; border: 1px solid #315077; border-radius: 16px; padding: 22px; margin: 18px 0; }
+    .button { display: inline-block; background: #e83245; color: #fff; padding: 14px 18px; border: 0; border-radius: 9px; font: inherit; font-weight: 700; text-decoration: none; margin: 8px 0; cursor: pointer; }
+    .button:focus-visible, a:focus-visible { outline: 3px solid #8fd7ff; outline-offset: 3px; }
+    a { color: #a7cdff; }
+    .muted { color: #b4c3d9; }
+    .label { color: #91aacc; font-size: .9rem; }
+    .value { font-weight: 650; font-size: 1.08rem; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 18px; }
+    ol { padding-left: 1.4rem; }
+    li { padding: 7px 0; line-height: 1.45; }
+    .ok { color: #a9e8c3; } .bad { color: #ffafaf; }
+    .entries { list-style: none; padding: 0; }
+    .entries li { padding: 14px 0; border-bottom: 1px solid #315077; }
+    small { color: #b4c3d9; }
+  </style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Siatkówka · reprezentacja Polski mężczyzn</div>
+  <h1>Mecze seniorów w Twoim kalendarzu</h1>
+  <p>Subskrybuj potwierdzone mecze mistrzostw Europy 2026. Po aktualizacji terminarza CEV ten sam adres kalendarza zawiera nowe i poprawione wydarzenia.</p>
+  <section class="card" aria-labelledby="subscribe-heading">
+    <h2 id="subscribe-heading">Adres subskrypcji</h2>
+    <p>W iPhonie: <strong>Ustawienia → Aplikacje → Kalendarz → Konta kalendarza → Dodaj konto → Inne → Dodaj kalendarz subskrybowany</strong>. Wklej adres poniższego pliku. Samo otwarcie pliku ICS importuje jednorazowo; subskrypcja wymaga dodania adresu URL.</p>
+    <button class="button" id="copy" type="button">Kopiuj adres subskrypcji</button>
+    <span id="copy-status" role="status"></span>
+    <p><code id="url" style="overflow-wrap:anywhere"></code></p>
+    <p class="muted">Godziny wydarzeń dostosują się do strefy czasowej telefonu. O częstotliwości pobierania zmian przez iPhone decyduje aplikacja Kalendarz.</p>
+  </section>
+  <section class="card" aria-labelledby="status-heading">
+    <h2 id="status-heading">Stan aktualizacji</h2>
+    <div class="grid">
+      <div><div class="label">Ostatnie uruchomienie</div><div class="value" id="checked">Wczytywanie…</div></div>
+      <div><div class="label">Wynik</div><div class="value" id="result">Wczytywanie…</div></div>
+      <div><div class="label">Zapisane mecze</div><div class="value" id="count">—</div></div>
+    </div>
+    <p id="health"></p>
+  </section>
+  <section class="card" aria-labelledby="history-heading">
+    <h2 id="history-heading">Dziennik ostatnich kontroli</h2>
+    <ul class="entries" id="entries"><li>Wczytywanie…</li></ul>
+    <p><a href="history.json">Pobierz dziennik (JSON)</a> · <a href="status.json">Pobierz status (JSON)</a></p>
+  </section>
+  <p class="muted">Źródło: <a href="https://www-old.cev.eu/Competition-Area/CompetitionView.aspx?CID=12862&amp;ID=1572&amp;PID=2990">oficjalny terminarz CEV</a>. Do kalendarza trafiają tylko spotkania, w których CEV wskazał Polskę, godzinę i miejsce.</p>
+</main>
+<script>
+const url = new URL('calendar.ics', location.href).href;
+document.getElementById('url').textContent = url;
+document.getElementById('copy').addEventListener('click', async () => {
+  try { await navigator.clipboard.writeText(url); document.getElementById('copy-status').textContent = 'Skopiowano'; }
+  catch { document.getElementById('copy-status').textContent = 'Zaznacz i skopiuj adres poniżej.'; }
+});
+const local = timestamp => new Date(timestamp).toLocaleString('pl-PL', {timeZone:'Europe/Warsaw',dateStyle:'medium',timeStyle:'short'}) + ' (czas polski)';
+const get = path => fetch(path, {cache:'no-store'}).then(r => {if (!r.ok) throw new Error('HTTP ' + r.status); return r.json()});
+Promise.all([get('status.json'),get('history.json')]).then(([s, history]) => {
+  document.getElementById('checked').textContent = local(s.last_run_utc);
+  document.getElementById('count').textContent = s.match_count ?? '—';
+  const result = document.getElementById('result');
+  result.textContent = s.last_result === 'ok' ? 'Zakończono poprawnie' : 'Błąd — zachowano kalendarz';
+  result.className = 'value ' + (s.last_result === 'ok' ? 'ok' : 'bad');
+  const age = Date.now() - new Date(s.last_run_utc).getTime();
+  const health = document.getElementById('health');
+  if (age > 36 * 3600 * 1000) { health.textContent = 'Uwaga: ostatnia kontrola była ponad 36 godzin temu. Sprawdź historię uruchomień na GitHubie.'; health.className = 'bad'; }
+  else if (s.last_result === 'error') { health.textContent = s.last_error || 'Ostatnia kontrola nie powiodła się.'; health.className = 'bad'; }
+  else health.textContent = 'Kalendarz jest aktualizowany raz dziennie.';
+  document.getElementById('entries').replaceChildren(...history.slice(0,30).map(item => {
+    const li = document.createElement('li');
+    const head = document.createElement('strong');
+    head.textContent = local(item.checked_at_utc) + ' · ' + (item.result === 'ok' ? 'OK' : 'BŁĄD');
+    head.className = item.result === 'ok' ? 'ok' : 'bad';
+    const detail = document.createElement('div');
+    detail.textContent = item.result === 'ok'
+      ? `Dodano: ${item.added.join(', ') || '0'} · Zmieniono: ${item.updated.join(', ') || '0'} · W źródle: ${item.confirmed_in_source}`
+      : item.error;
+    li.append(head, detail); return li;
+  }));
+}).catch(() => {
+  document.getElementById('result').textContent = 'Nie można odczytać statusu';
+  document.getElementById('entries').textContent = 'Dziennik jest chwilowo niedostępny.';
+});
+</script>
+</body>
+</html>

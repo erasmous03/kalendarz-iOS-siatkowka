@@ -1,0 +1,80 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Polska Siatkowka//Mecze seniorow CEV//PL
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Polska siatkówka – seniorzy (ME 2026)
+X-WR-TIMEZONE:Europe/Warsaw
+REFRESH-INTERVAL;VALUE=DURATION:P1D
+X-PUBLISHED-TTL:P1D
+BEGIN:VEVENT
+UID:cev-eurovolley-2026-men-84811@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260912T210708Z
+LAST-MODIFIED:20260912T210708Z
+DTSTART:20260910T130000Z
+DTEND:20260910T160000Z
+SUMMARY:Polska – Portugalia | ME 2026
+LOCATION:Arena 8888\, Sofia\, Bułgaria
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). CEV Mistrzostwa 
+ Europy 2026\, faza grupowa\, grupa B. Godzina rozpoczęcia meczu.
+URL:https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84811&ID=157
+ 2
+END:VEVENT
+BEGIN:VEVENT
+UID:cev-eurovolley-2026-men-84482@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260912T210708Z
+LAST-MODIFIED:20260912T210708Z
+DTSTART:20260912T130000Z
+DTEND:20260912T160000Z
+SUMMARY:Polska – Izrael | ME 2026
+LOCATION:Arena 8888\, Sofia\, Bułgaria
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). CEV Mistrzostwa 
+ Europy 2026\, faza grupowa\, grupa B. Godzina rozpoczęcia meczu.
+URL:https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84482&ID=157
+ 2
+END:VEVENT
+BEGIN:VEVENT
+UID:cev-eurovolley-2026-men-84485@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260912T210708Z
+LAST-MODIFIED:20260912T210708Z
+DTSTART:20260913T160000Z
+DTEND:20260913T190000Z
+SUMMARY:Macedonia Północna – Polska | ME 2026
+LOCATION:Arena 8888\, Sofia\, Bułgaria
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). CEV Mistrzostwa 
+ Europy 2026\, faza grupowa\, grupa B. Godzina rozpoczęcia meczu.
+URL:https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84485&ID=157
+ 2
+END:VEVENT
+BEGIN:VEVENT
+UID:cev-eurovolley-2026-men-84489@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260912T210708Z
+LAST-MODIFIED:20260912T210708Z
+DTSTART:20260915T160000Z
+DTEND:20260915T190000Z
+SUMMARY:Polska – Ukraina | ME 2026
+LOCATION:Arena 8888\, Sofia\, Bułgaria
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). CEV Mistrzostwa 
+ Europy 2026\, faza grupowa\, grupa B. Godzina rozpoczęcia meczu.
+URL:https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84489&ID=157
+ 2
+END:VEVENT
+BEGIN:VEVENT
+UID:cev-eurovolley-2026-men-84491@polska-siatkowka
+SEQUENCE:0
+DTSTAMP:20260912T210708Z
+LAST-MODIFIED:20260912T210708Z
+DTSTART:20260916T160000Z
+DTEND:20260916T190000Z
+SUMMARY:Polska – Bułgaria | ME 2026
+LOCATION:Arena 8888\, Sofia\, Bułgaria
+DESCRIPTION:Reprezentacja Polski seniorów (mężczyźni). CEV Mistrzostwa 
+ Europy 2026\, faza grupowa\, grupa B. Godzina rozpoczęcia meczu.
+URL:https://www-old.cev.eu/Competition-Area/MatchPage.aspx?mID=84491&ID=157
+ 2
+END:VEVENT
+END:VCALENDAR
